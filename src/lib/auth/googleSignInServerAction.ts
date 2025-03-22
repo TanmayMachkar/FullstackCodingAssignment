@@ -1,8 +1,12 @@
 "use server";
 
+import { signIn } from "@src/lib/auth/authConfig";
+
 export const handleGoogleSignIn = async() => {
 	try{
-		console.log("Google SignIn");
+		await signIn("google", {
+			redirectTo: "/dashboard"
+		});
 	} catch(error) {
 		throw error;
 	}
