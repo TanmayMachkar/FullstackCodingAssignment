@@ -1,7 +1,7 @@
 "use server";
 
-import { auth } from "@/src/lib/auth/authConfig";
-import { pool } from "@/src/lib/postgres";
+import { auth } from "@src/lib/auth/authConfig";
+import { pool } from "@src/lib/postgres";
 
 export const unLinkGoogleAccount = async () => {
   const session = await auth();

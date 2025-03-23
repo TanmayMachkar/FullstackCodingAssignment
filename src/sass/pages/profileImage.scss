@@ -1,0 +1,59 @@
+.profile-update-section {
+  text-align: center;
+  margin-top: 20px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+  .upload-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .file-input-label {
+    background: #eee;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      background: #ddd;
+    }
+  }
+
+  .file-input {
+    display: none;
+  }
+
+  .upload-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      background: #0056b3;
+    }
+  }
+
+  .preview-container,
+  .uploaded-container {
+    margin-top: 10px;
+  }
+
+  .image-preview,
+  .uploaded-image {
+    width: 120px;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: 2px solid #ddd;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  }
+}

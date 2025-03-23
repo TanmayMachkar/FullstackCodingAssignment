@@ -4,6 +4,8 @@ import { pool } from "@src/lib/postgres";
 import Google from "next-auth/providers/google";
 import Nodemailer from "next-auth/providers/nodemailer";
 import { clearStaleTokens } from "@src/lib/auth/clearStaleTokenServerAction";
+import { setName } from "@src/lib/auth/setNameServerAction";
+import { updateUserImage } from "@src/lib/auth/imageUploadServerAction";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
 	trustHost: true,
@@ -37,7 +39,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         })
     ],
 	callbacks: {
-		async jwt({token, user}){
+		async jwt({token, user, session, trigger}){
+			if (trigger === "update" && session?.name != token.name){
+				token.name = session.name;
+				try{
+					await setName(token.name);
+				} catch(error) {
+					console.error("Failed to set user name: ", error);
+				}
+			}
+
+			if (trigger === "update" && session?.image !== token.image) {
+			    token.image = session.image;
+			    try {
+			        await updateUserImage(token.image);
+			    } catch (error) {
+			        console.error("Failed to update user image: ", error);
+			    }
+			}
+
 			if (user) {
 				await clearStaleTokens();
 				return {
