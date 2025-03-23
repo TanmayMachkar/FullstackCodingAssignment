@@ -2,6 +2,8 @@ import NextAuth from "next-auth";
 import PostgresAdapter from "@auth/pg-adapter";
 import { pool } from "@src/lib/postgres";
 import Google from "next-auth/providers/google";
+import Nodemailer from "next-auth/providers/nodemailer";
+import { clearStaleTokens } from "@src/lib/auth/clearStaleTokenServerAction";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
 	trustHost: true,
@@ -13,6 +15,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 	},
 	pages: {
 		signIn: "/auth/sign-in",
+		verifyRequest: "/auth/auth-success",
+		error: "/auth/auth-error",
 	},
 	providers: [
         Google({
@@ -20,10 +24,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             clientSecret: process.env.AUTH_GOOGLE_SECRET,
             allowDangerousEmailAccountLinking: true,
         }),
+        Nodemailer({
+        	server: {
+        		host: process.env.EMAIL_SERVER_HOST,
+        		port: parseInt(process.env.EMAIL_SERVER_PORT, 10),
+        		auth: {
+        			user: process.env.EMAIL_SERVER_USER,
+        			pass: process.env.EMAIL_SERVER_PASSWORD,
+        		}
+        	},
+        	from: process.env.EMAIL_FROM,
+        })
     ],
 	callbacks: {
 		async jwt({token, user}){
 			if (user) {
+				await clearStaleTokens();
 				return {
 					...token,
 					id: user.id,
