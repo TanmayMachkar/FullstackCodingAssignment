@@ -1,7 +1,6 @@
 "use client";
 
 import axios from 'axios';
-import Image from "next/image";
 import { SignOutButton } from "@src/components/sign-out-button";
 import { getAccountLinkStatus } from "@src/lib/auth/getAccountLinkStatusServerAction";
 import { getUserName } from "@src/lib/auth/getUserNameServerAction";
@@ -155,7 +154,11 @@ export const DashboardPage: React.FC = () => {
           {fileUrl && (
             <div className="uploaded-container">
               <p>Updated Profile Image:</p>
-              <Image src={fileUrl} alt="Uploaded" className="uploaded-image" />
+              <img 
+                src={fileUrl} 
+                alt="Uploaded"
+                className="uploaded-image" 
+              />
             </div>
           )}
         </div>
