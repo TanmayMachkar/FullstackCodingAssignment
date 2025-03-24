@@ -20,11 +20,15 @@ export const DashboardPage: React.FC = () => {
   const [ fileUrl, setFileUrl ] = useState('');
   const { update } = useSession();
 
-  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async(e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try{
       const fileData = new FormData();
-      fileData.append('file', file);
+      if (!file) {
+        console.error("No file selected");
+        return;
+      }
+      fileData.append("file", file);
       const responseData = await axios({
         method: 'post',
         url: 'https://api.pinata.cloud/pinning/pinFileToIPFS',
