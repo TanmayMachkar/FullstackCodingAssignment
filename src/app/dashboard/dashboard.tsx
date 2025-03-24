@@ -20,7 +20,7 @@ export const DashboardPage: React.FC = () => {
   const [ fileUrl, setFileUrl ] = useState('');
   const { update } = useSession();
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try{
       const fileData = new FormData();
