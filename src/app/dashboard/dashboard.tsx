@@ -134,7 +134,11 @@ export const DashboardPage: React.FC = () => {
             <label className="file-input-label">
               <input
                 type="file"
-                onChange={(e) => setFile(e.target.files[0])}
+                onChange={(e) => {
+                  if (e.target.files && e.target.files.length > 0) {
+                    setFile(e.target.files[0]);
+                  }
+                }}
                 accept="image/png,image/jpeg"
                 className="file-input"
               />
