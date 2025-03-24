@@ -36,7 +36,9 @@ export const DashboardPage: React.FC = () => {
       })
       const fileUrl = 'https://gateway.pinata.cloud/ipfs/' + responseData.data.IpfsHash;
       setFileUrl(fileUrl);
-      update({image: fileUrl})
+      await update({ image: fileUrl });
+      window.location.reload();
+      console.log("Updated session image: ", fileUrl);
     } catch(error) {
       console.error(error);
     }
@@ -52,6 +54,7 @@ export const DashboardPage: React.FC = () => {
       const image = await getImage();
       if (image) {
         setFileUrl(image);
+        console.log(fileUrl);
       }
 
       const role = await getUserRole();

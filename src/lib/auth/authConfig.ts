@@ -52,11 +52,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 			if (trigger === "update" && session?.image !== token.image) {
 			    token.image = session.image;
 			    try {
-			        await updateUserImage(token.image);
+			        if (typeof token.image === "string" && token.image.trim() !== "") {
+			            await updateUserImage(token.image);
+			        } else {
+			            console.warn("Skipping update: Image URL is invalid");
+			        }
 			    } catch (error) {
 			        console.error("Failed to update user image: ", error);
 			    }
 			}
+
 
 			if (user) {
 				await clearStaleTokens();
