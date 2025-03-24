@@ -18,12 +18,12 @@ export const unLinkGoogleAccount = async () => {
   }
 
   try {
-    const result = await pool.query(
+    await pool.query(
       "DELETE FROM accounts WHERE provider = 'google' AND \"userId\" = $1",
       [uuid]
     );
     return true;
   } catch (error) {
-    console.error("Failed to unlink Google account", error);
+    console.error("Failed to unlink Google account:", error);
   }
 };
