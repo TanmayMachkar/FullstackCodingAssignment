@@ -7,7 +7,7 @@ import { getUserName } from "@src/lib/auth/getUserNameServerAction";
 import { getUserRole } from "@src/lib/auth/getUserRoleServerAction";
 import { getImage } from "@src/lib/auth/getImageServerAction";
 import { handleGoogleSignIn } from "@src/lib/auth/googleSignInServerAction";
-import { unlinkGoogleAccount } from "@src/lib/auth/unlinkGoogleAccountServerAction";
+import { unLinkGoogleAccount } from "@src/lib/auth/unlinkGoogleAccountServerAction";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
@@ -104,7 +104,7 @@ export const DashboardPage: React.FC = () => {
             onClick={
               isAccountLinked
                 ? async () => {
-                    await unlinkGoogleAccount().then(() => {
+                    await unLinkGoogleAccount().then(() => {
                       setIsAccountLinked(false);
                     });
                   }
