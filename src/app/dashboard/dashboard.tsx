@@ -16,7 +16,7 @@ export const DashboardPage: React.FC = () => {
   const [isAccountLinked, setIsAccountLinked] = useState(false);
   const [username, setUsername] = useState("");
   const [role, setRole] = useState("");
-  const [ file, setFile ] = useState(null);
+  const [file, setFile] = useState<File | null>(null);
   const [ fileUrl, setFileUrl ] = useState('');
   const { update } = useSession();
 
